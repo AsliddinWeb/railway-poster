@@ -23,13 +23,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Global APPS
-    'channels',
-
     # Local APPS
     'user_app',
     'product_app',
     'settings_app',
+
+    # Global APPS
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +61,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'BOLT.wsgi.application'
-ASGI_APPLICATION = 'BOLT.asgi.application'
 
 
 # Database
@@ -247,11 +246,4 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     },
     "actions_sticky_top": True
-}
-
-# Channels
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
 }

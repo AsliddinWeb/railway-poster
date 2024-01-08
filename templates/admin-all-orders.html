@@ -204,6 +204,7 @@
                                 <tr class="text-body">
                                     <th class="ps-0">#ID</th>
                                     <th>Maxsulotlar</th>
+                                    <th>Buyurtmachi</th>
                                     <th class="text-center">Xolati</th>
                                     <th class="text-end pe-0">O'zgartirish</th>
                                 </tr>
@@ -219,6 +220,15 @@
                                                             {% for m in order.maxsulotlar.all %}
                                                                 {{ m }},
                                                             {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ms-3 flex-grow-1">
+                                                        <div class="fw-600 text-success">
+                                                            {{ order.foydalanuvchi.role }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -242,7 +252,7 @@
                                                 {% endif %}
                                             </td>
                                             <td class="text-end">
-                                                <a href="btn btn-lg btn-theme">
+                                                <a href="{% url 'superadmin_edit_order_page' pk=order.id %}" class="btn btn-lg btn-theme">
                                                     <i class="fa-solid fa-pen-to-square fs-20px"></i>
                                                 </a>
                                             </td>

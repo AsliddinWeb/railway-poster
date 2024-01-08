@@ -230,13 +230,13 @@
                             <hr class="opacity-1 my-4">
                         {% endfor %}
                     </div>
-                    <div class="card-footer bg-none d-flex p-3 justify-content-between align-items-center">
+                    <div class="card-footer bg-none d-flex p-3 justify-content-around align-items-center">
                         <div>
-                            <h5>Buyurtma xolatini o'zgartirish:</h5>
+                            <h5 class="">Buyurtmani o'zgartirish:</h5>
                         </div>
                         <div>
                             {% if order.status == '1' %}
-                                <a href="{% url 'superadmin_order_status_2' pk=order.id %}" class="btn btn-lg btn-success fw-semibold fs-13px ms-2"><i class="fa-regular fa-circle-check"></i> Yuborildi</a>
+                                <a href="{% url 'superadmin_order_status_2' pk=order.id %}" class="btn btn-lg btn-success fw-semibold fs-13px ms-2"><i class="fa-regular fa-circle-check"></i> Yuborish</a>
                             {% elif order.status == '2' %}
                                 <span class="text-success fw-bold fs-16px">Buyurtma yuborilgan!</span>
                             {% else %}
