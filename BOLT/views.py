@@ -7,6 +7,9 @@ from settings_app.models import SiteSettings, AdminParol
 from django.utils import timezone
 from user_app.models import User
 
+# Filter
+from django.db.models import Q
+
 @login_required(login_url='login_page')
 def home_page(request):
     if request.user.is_superuser:

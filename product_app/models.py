@@ -1,4 +1,4 @@
-from django.db import models, Q
+from django.db import models
 from user_app.models import User
 
 class Kategoriya(models.Model):
