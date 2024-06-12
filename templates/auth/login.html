@@ -14,128 +14,128 @@
 
     <style>
         .bg-depos {
-            display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              grid-template-rows: 1fr 1fr;
-              gap: 30px 20px;
+            background-image: url("{% static 'bg-uzb.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
-<div class="bg-depos">
-    <div>
-        <img src="{% static 'assets/img/vagon-depos.jpg' %}" alt="">
-    </div>
-    <div>
-        <div id="app" class="app app-without-header">
 
-        <div class="login">
-    
-            <div class="login-content">
-                {% if error %}
-                    <div class="alert alert-danger">
-                        <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+<div id="app" class="app app-full-height app-without-header bg-depos">
+
+    <div class="login">
+
+        <div class="login-content" style="max-width: 40rem;">
+		<div class="text-center">
+                        <img src="{% static 'logo-vagon.png' %}" width="70%" alt="Logo">
+                </div>
+            {% if error %}
+                <div class="alert alert-danger">
+                    <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST" name="login_form" class="shadow p-3 mb-5 mx-5 bg-body rounded">
+                {% csrf_token %}
+                <h1 class="text-center text-theme">Kirish!</h1>
+                <div class="text-center mb-4 text-theme fw-bold">
+                    Railway poster tizimiga xush kelibsiz!
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control form-control-lg p-3"
+                           placeholder="Username. . .">
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex">
+                        <label class="form-label">Parol</label>
                     </div>
-                {% endif %}
-                <form method="POST" name="login_form">
-                    {% csrf_token %}
-                    <h1 class="text-center text-theme">Kirish!</h1>
-                    <div class="text-center mb-4 text-theme fw-bold">
-                        Vagon Depos tizimiga xush kelibsiz!
+                    <input type="password" name="password" class="form-control form-control-lg p-3" value
+                           placeholder="Parol, 4ta belgidan iborat!">
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value id="customCheck1">
+                        <label class="form-check-label fw-500" for="customCheck1">Eslab qolish</label>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control form-control-lg p-3"
-                               placeholder="Username. . .">
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex">
-                            <label class="form-label">Parol</label>
-                        </div>
-                        <input type="password" name="password" class="form-control form-control-lg p-3" value
-                               placeholder="Parol, 4ta belgidan iborat!">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value id="customCheck1">
-                            <label class="form-check-label fw-500" for="customCheck1">Eslab qolish</label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-theme btn-lg d-block w-100 fw-500 mb-3">Kirish</button>
-                </form>
-            </div>
-    
+                </div>
+                <button type="submit" class="btn btn-theme btn-lg d-block w-100 fw-500 mb-3">Kirish</button>
+            </form>
         </div>
-            
-        <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
-            
-        <div class="theme-panel">
-            <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
-            <div class="theme-panel-content">
-                <ul class="theme-list clearfix">
-                    <li><a href="javascript:;" class="bg-red" data-theme="theme-red" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Red"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-pink" data-theme="theme-pink" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Pink"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-orange" data-theme="theme-orange" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Orange"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-yellow" data-theme="theme-yellow" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Yellow"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-lime" data-theme="theme-lime" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Lime"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-green" data-theme="theme-green" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Green"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-teal" data-theme="theme-teal" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Teal"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-cyan" data-theme="theme-cyan" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Aqua"
-                           data-original-title title>&nbsp;</a></li>
-                    <li class="active"><a href="javascript:;" class="bg-blue" data-theme data-click="theme-selector"
-                                          data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
-                                          data-bs-title="Default" data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-purple" data-theme="theme-purple" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Purple"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-indigo" data-theme="theme-indigo" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Indigo"
-                           data-original-title title>&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-gray-600" data-theme="theme-gray-600" data-click="theme-selector"
-                           data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Gray"
-                           data-original-title title>&nbsp;</a></li>
-                </ul>
-                <hr class="mb-0">
-                <div class="row mt-10px pt-3px">
-                    <div class="col-9 control-label text-body-emphasis fw-bold">
-                        <div>Dark Mode <span class="badge bg-theme text-theme-color ms-1 position-relative py-4px px-6px"
-                                             style="top: -1px">NEW</span></div>
-                        <div class="lh-sm fs-13px fw-semibold">
-                            <small class="text-body-emphasis opacity-50">
-                                Adjust the appearance to reduce glare and give your eyes a break.
-                            </small>
-                        </div>
+
+    </div>
+
+
+    <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+
+
+    <div class="theme-panel">
+        <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
+        <div class="theme-panel-content">
+            <ul class="theme-list clearfix">
+                <li><a href="javascript:;" class="bg-red" data-theme="theme-red" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Red"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-pink" data-theme="theme-pink" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Pink"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-orange" data-theme="theme-orange" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Orange"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-yellow" data-theme="theme-yellow" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Yellow"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-lime" data-theme="theme-lime" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Lime"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-green" data-theme="theme-green" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Green"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-teal" data-theme="theme-teal" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Teal"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-cyan" data-theme="theme-cyan" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Aqua"
+                       data-original-title title>&nbsp;</a></li>
+                <li class="active"><a href="javascript:;" class="bg-blue" data-theme data-click="theme-selector"
+                                      data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
+                                      data-bs-title="Default" data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-purple" data-theme="theme-purple" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Purple"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-indigo" data-theme="theme-indigo" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Indigo"
+                       data-original-title title>&nbsp;</a></li>
+                <li><a href="javascript:;" class="bg-gray-600" data-theme="theme-gray-600" data-click="theme-selector"
+                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body" data-bs-title="Gray"
+                       data-original-title title>&nbsp;</a></li>
+            </ul>
+            <hr class="mb-0">
+            <div class="row mt-10px pt-3px">
+                <div class="col-9 control-label text-body-emphasis fw-bold">
+                    <div>Dark Mode <span class="badge bg-theme text-theme-color ms-1 position-relative py-4px px-6px"
+                                         style="top: -1px">NEW</span></div>
+                    <div class="lh-sm fs-13px fw-semibold">
+                        <small class="text-body-emphasis opacity-50">
+                            Adjust the appearance to reduce glare and give your eyes a break.
+                        </small>
                     </div>
-                    <div class="col-3 d-flex">
-                        <div class="form-check form-switch ms-auto mb-0 mt-2px">
-                            <input type="checkbox" class="form-check-input" name="app-theme-dark-mode" id="appThemeDarkMode"
-                                   value="1">
-                            <label class="form-check-label" for="appThemeDarkMode">&nbsp;</label>
-                        </div>
+                </div>
+                <div class="col-3 d-flex">
+                    <div class="form-check form-switch ms-auto mb-0 mt-2px">
+                        <input type="checkbox" class="form-check-input" name="app-theme-dark-mode" id="appThemeDarkMode"
+                               value="1">
+                        <label class="form-check-label" for="appThemeDarkMode">&nbsp;</label>
                     </div>
                 </div>
             </div>
         </div>
-    
-        </div>
     </div>
-</div>
 
+</div>
 
 <script src="{% static 'assets/js/vendor.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/js/app.min.js' %}" type="text/javascript"></script>

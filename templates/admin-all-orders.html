@@ -36,8 +36,8 @@
                     <span class="bar"></span>
                 </button>
             </div>
-            <a href="{% url 'home_page' %}" class="brand-logo">
-                <img src="{{ site_settings.logo.url }}" class="invert-dark" alt height="40">
+            <a href="{% url 'home_page' %}" class="brand-logo" style="padding: 0;">
+                <img src="{{ site_settings.logo.url }}" class="invert-dark" alt="Logo">
             </a>
         </div>
 
@@ -143,12 +143,6 @@
                         <span class="menu-text">Bosh sahifa</span>
                     </a>
                 </div>
-                <div class="menu-item">
-                    <a href="/admin/" target="_blank" class="menu-link">
-                        <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
-                        <span class="menu-text">Qo'shimcha boshqaruv</span>
-                    </a>
-                </div>
 
                 <div class="menu-divider"></div>
                 <div class="menu-header">Buyurtmalar</div>
@@ -161,19 +155,19 @@
                 <div class="menu-item">
                     <a href="{% url 'superadmin_orders_1_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa fa-chart-bar"></i></span>
-                        <span class="menu-text text-warning">Buyurtma berilganlar</span>
+                        <span class="menu-text text-warning">Buyurtma berilganlar ({{ orders_1|length }})</span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a href="{% url 'superadmin_orders_2_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa-solid fa-check"></i></span>
-                        <span class="menu-text text-success">Yetkazib berilganlar</span>
+                        <span class="menu-text text-success">Yetkazib berilganlar({{ orders_2|length }})</span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a href="{% url 'superadmin_orders_3_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa fa-question-circle"></i></span>
-                        <span class="menu-text text-danger">Bekor qilinganlar</span>
+                        <span class="menu-text text-danger">Bekor qilinganlar ({{ orders_3|length }})</span>
                     </a>
                 </div>
 
@@ -204,6 +198,7 @@
                                 <tr class="text-body">
                                     <th class="ps-0">#ID</th>
                                     <th>Maxsulotlar</th>
+                                    <th>Vaqti</th>
                                     <th>Buyurtmachi</th>
                                     <th class="text-center">Xolati</th>
                                     <th class="text-end pe-0">O'zgartirish</th>
@@ -223,6 +218,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </td>
+                                            <td>
+                                                {% if order.status == '2' %}
+                                                    {{ order.updated_at }}
+                                                {% else %}
+                                                    {{ order.created_at }}
+                                                {% endif %}
+
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
@@ -344,7 +347,7 @@
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <script>
     let table = new DataTable('#myTable', {
-        order: [1, 'asc'],
+        order: [0, 'desc'],
         buttons: [
             'csv'
         ]

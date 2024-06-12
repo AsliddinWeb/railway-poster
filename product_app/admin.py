@@ -1,11 +1,11 @@
 from django.contrib import admin
 from import_export.admin import ImportExportMixin
-from .models import Maxsulot, OrderItems, Order, CartItems
+from .models import Maxsulot, OrderItems, Order, CartItems, Kategoriya
 from .resources import MaxsulotResource, OrderResource, OrderItemsResource, CartItemsResource
 
 class MaxsulotAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = MaxsulotResource
-
+admin.site.register(Kategoriya)
 admin.site.register(Maxsulot, MaxsulotAdmin)
 
 class OrderItemsAdmin(ImportExportMixin, admin.ModelAdmin):

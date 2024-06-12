@@ -26,7 +26,9 @@
 
                     <div class="logo">
                         <a href="{% url 'home_page' %}">
-                            <div class="logo-img"><i class="fa fa-bowl-rice"></i></div>
+                            <div class="logo-img" style="height: 5rem;">
+                                <img src="{% static 'logo-vagon.png' %}">
+                        </div>
                             <div class="logo-text">{{ site_settings.brand_name }}</div>
                         </a>
                     </div>
@@ -137,8 +139,12 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <a class="d-block"><img src="{{ order.foydalanuvchi.image.url }}" alt="" width="45"
-                                                         class="rounded-pill"></a>
+                        <a class="d-block">
+                           {% if order.foydalanuvchi.image %}
+                             <img src="{{ order.foydalanuvchi.image.url }}" alt="" width="45"
+                                                         class="rounded-pill">
+                           {% endif %}
+</a>
                         <div class="flex-fill ps-2">
                             <a class="d-block text-decoration-none text-body fw-semibold">{{ order.foydalanuvchi.role }}</a>
                             <span class="fs-13px text-body text-opacity-50">{{ order.foydalanuvchi.username }}</span>
@@ -237,7 +243,7 @@
                                            id="rasmUchun">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="form-label" for="textUchun">Qo'shimcha matn(Ixtiyoriy)</label>
+                                    <label class="form-label fw-bold text-primary" for="textUchun">Qo'shimcha matn(Ixtiyoriy)</label>
                                     <textarea name="qoshimchaMatn" class="form-control" id="textUchun"
                                               rows="3"></textarea>
                                 </div>

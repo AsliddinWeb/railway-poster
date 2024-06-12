@@ -1,18 +1,25 @@
-from django.db import models
+from django.db import models, Q
 from user_app.models import User
 
+class Kategoriya(models.Model):
+    nomi = models.CharField(max_length=255)
+    def __str__(self):
+        return self.nomi
+
 class Maxsulot(models.Model):
+    kategoriya = models.ForeignKey(Kategoriya, on_delete=models.CASCADE, null=True, blank=True)
     nomi = models.CharField(max_length=455)
     rasm = models.ImageField(upload_to='maxsulotlar')
     foydalanuvchi = models.ForeignKey(User, on_delete=models.CASCADE)
     razmer = models.CharField(max_length=255)
     qoshimcha = models.TextField(null=True, blank=True)
+    ball = models.BigIntegerField(default=1)
 
     def __str__(self):
         return self.nomi
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-ball']
         verbose_name_plural = "Maxsulotlar"
 
 class OrderItems(models.Model):
@@ -21,7 +28,7 @@ class OrderItems(models.Model):
     foydalanuvchi = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.maxsulot.nomi} x {self.soni}"
+        return f"{self.maxsulot.nomi}({self.maxsulot.razmer}) x {self.soni}"
 
     class Meta:
         verbose_name_plural = "Buyurtma maxsulotlari"

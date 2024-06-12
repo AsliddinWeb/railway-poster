@@ -10,3 +10,9 @@ class SiteSettings(models.Model):
 
     class Meta:
         verbose_name_plural = "Sayt sozlamalari"
+
+class AdminParol(models.Model):
+    parol = models.BigIntegerField()
+
+    def __str__(self):
+        return str(self.parol)
