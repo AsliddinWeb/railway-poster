@@ -39,6 +39,11 @@ STATUS_CHOICES = (
     ('3', 'Bekor qilindi'),
 )
 
+ADMIN_CHOICES = (
+    ('1', 'Mexanika bo\'limi'),
+    ('2', 'Omborxona'),
+)
+
 class Order(models.Model):
     maxsulotlar = models.ManyToManyField(OrderItems)
     foydalanuvchi = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -47,6 +52,7 @@ class Order(models.Model):
     bekor_qilish_sababi = models.TextField(null=True, blank=True)
     qoshimcha_rasm = models.ImageField(upload_to='qoshimcha-rasmlar', null=True, blank=True)
     qoshimcha_matn = models.TextField(null=True, blank=True)
+    kimga = models.CharField(max_length=255, choices=ADMIN_CHOICES, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

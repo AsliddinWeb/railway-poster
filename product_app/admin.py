@@ -15,7 +15,7 @@ admin.site.register(OrderItems, OrderItemsAdmin)
 
 class OrderAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = OrderResource
-    list_display = ['id', 'foydalanuvchi', 'jami_maxsulot', 'bekor_qilish_sababi', 'created_at', 'status']
+    list_display = ['id', 'foydalanuvchi', 'jami_maxsulot', 'bekor_qilish_sababi', 'created_at', 'status', 'kimga']
 
 admin.site.register(Order, OrderAdmin)
 

@@ -1,70 +1,62 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from django.db.models import Q
 
 from product_app.models import Maxsulot, CartItems, Order, OrderItems, Kategoriya
 from settings_app.models import SiteSettings, AdminParol
-
-from django.utils import timezone
 from user_app.models import User
-
-# Filter
-from django.db.models import Q
 
 @login_required(login_url='login_page')
 def home_page(request):
+    site_settings = SiteSettings.objects.last()
+    today = timezone.now().date()
+    
     if request.user.is_superuser:
-        # Required
-        site_settings = SiteSettings.objects.last()
+        if request.user.username == "sklad":
+            orders = Order.objects.filter(kimga="2")
+            orders_1 = orders.filter(status='1')
+            orders_2 = orders.filter(status='2')
+            orders_3 = orders.filter(status='3')
 
-        # Main
-        orders = Order.objects.all()
+            today_orders = orders.filter(created_at__date=today)
+            today_orders_1 = today_orders.filter(status='1')
+            today_orders_2 = today_orders.filter(status='2')
 
-        orders_1 = Order.objects.filter(status='1')
-        orders_2 = Order.objects.filter(status='2')
-        orders_3 = Order.objects.filter(status='3')
+            users = User.objects.all()
+        else:
+            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
+            orders_1 = orders.filter(status='1')
+            orders_2 = orders.filter(status='2')
+            orders_3 = orders.filter(status='3')
 
-        today = timezone.now().date()
-        today_orders = Order.objects.filter(created_at__date=today)
+            today_orders = orders.filter(created_at__date=today)
+            today_orders_1 = today_orders.filter(status='1')
+            today_orders_2 = today_orders.filter(status='2')
 
-        today_orders_1 = Order.objects.filter(created_at__date=today, status='1')
-        today_orders_2 = Order.objects.filter(created_at__date=today, status='2')
+            users = User.objects.all()
 
-        users = User.objects.all()
-
-        # CTX
         admin_ctx = {
-            # Required
             'site_settings': site_settings,
-
-            # Main
             'orders': orders,
             'top_orders': orders[:10],
             'orders_1': orders_1,
             'orders_2': orders_2,
             'orders_3': orders_3,
-
             'today_orders': today_orders,
-
             'today_orders_1': today_orders_1,
             'today_orders_2': today_orders_2,
             'users': users,
         }
 
         return render(request, 'admin-home.html', admin_ctx)
+    
     elif request.user.is_staff:
-        # Requirements
-        site_settings = SiteSettings.objects.last()
-
         kategoriya = get_object_or_404(Kategoriya, id=1)
         maxsulotlar = Maxsulot.objects.filter(Q(kategoriya=kategoriya) | Q(kategoriya__isnull=True))
-
         cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-        cart_item_count = len(cart_items)
-
-        if Order.objects.first():
-            order_id = int(Order.objects.first().id) + 1
-        else:
-            order_id = 1
+        cart_item_count = cart_items.count()
+        order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
 
         user_ctx = {
             'site_settings': site_settings,
@@ -73,24 +65,21 @@ def home_page(request):
             'cart_items': cart_items,
             'cart_item_count': cart_item_count,
         }
+
         return render(request, 'user-home.html', user_ctx)
+    
+    else:
+        return redirect('login_page')
 
 @login_required(login_url='login_page')
 def user_sklad(request):
     if request.user.is_staff:
-        # Requirements
         site_settings = SiteSettings.objects.last()
-
         kategoriya = get_object_or_404(Kategoriya, pk=2)
         maxsulotlar = Maxsulot.objects.filter(kategoriya=kategoriya)
-
         cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-        cart_item_count = len(cart_items)
-
-        if Order.objects.first():
-            order_id = int(Order.objects.first().id) + 1
-        else:
-            order_id = 1
+        cart_item_count = cart_items.count()
+        order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
 
         user_ctx = {
             'site_settings': site_settings,
@@ -99,20 +88,23 @@ def user_sklad(request):
             'cart_items': cart_items,
             'cart_item_count': cart_item_count,
         }
+
         return render(request, 'user-sklad.html', user_ctx)
+    
     else:
         return redirect('home_page')
 
 @login_required(login_url='login_page')
 def superadmin_product_page(request):
     if request.user.is_superuser:
-        # Requirements
         maxsulotlar = Maxsulot.objects.all()
 
         user_ctx = {
             'maxsulotlar': maxsulotlar,
         }
+
         return render(request, 'user-home.html', user_ctx)
+    
     else:
         return redirect('home_page')
 
@@ -120,55 +112,40 @@ def superadmin_product_page(request):
 def add_to_cart(request, product_id):
     if request.method == "POST":
         product = get_object_or_404(Maxsulot, id=product_id)
-
-        # Add to cart
         cart_item = CartItems.objects.filter(maxsulot=product, foydalanuvchi=request.user)
-        if len(cart_item) > 0:
+
+        if cart_item.exists():
             cart_item.delete()
-            CartItems.objects.create(
-                maxsulot=product,
-                soni=int(request.POST.get('qty', 1)),
-                foydalanuvchi=request.user
-            )
-            return redirect('home_page')
-        else:
-            CartItems.objects.create(
-                maxsulot=product,
-                soni=int(request.POST.get('qty', 1)),
-                foydalanuvchi=request.user
-            )
-            return redirect('home_page')
+        
+        CartItems.objects.create(
+            maxsulot=product,
+            soni=int(request.POST.get('qty', 1)),
+            foydalanuvchi=request.user
+        )
+
+        return redirect('home_page')
+    
     return redirect('home_page')
 
 @login_required(login_url='login_page')
 def remove_item_cart(request, item_id):
     cart_item = get_object_or_404(CartItems, id=item_id)
-    print(cart_item)
     if cart_item:
         cart_item.delete()
-        return redirect('home_page')
     return redirect('home_page')
 
 @login_required(login_url='login_page')
 def remove_all_cart(request):
-    cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-    for i in cart_items:
-        i.delete()
+    CartItems.objects.filter(foydalanuvchi=request.user).delete()
     return redirect('home_page')
 
 @login_required(login_url='login_page')
 def order_page(request):
-    # Requirements
     site_settings = SiteSettings.objects.last()
     maxsulotlar = Maxsulot.objects.all()
-
     cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-    cart_item_count = 0
-
-    if Order.objects.first():
-        order_id = int(Order.objects.first().id) + 1
-    else:
-        order_id = 1
+    cart_item_count = cart_items.count()
+    order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
 
     user_ctx = {
         'site_settings': site_settings,
@@ -179,15 +156,14 @@ def order_page(request):
     }
 
     if request.method == "POST":
-        cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-
-        if cart_items:
+        if cart_items.exists():
             order_instance = Order.objects.create(
                 foydalanuvchi=request.user,
                 jami_maxsulot=0,
                 status='1',
                 qoshimcha_rasm=request.FILES.get('qoshimchaRasm', None),
                 qoshimcha_matn=request.POST.get('qoshimchaMatn', None),
+                kimga=request.POST.get('kimga', None)
             )
             k = 0
             for item in cart_items:
@@ -199,16 +175,15 @@ def order_page(request):
                 item.delete()
                 k += maxsulot.soni
                 order_instance.maxsulotlar.add(maxsulot)
-            print(k)
+            
             order_instance.jami_maxsulot = k
             order_instance.save()
-
-            # Order ctx
             user_ctx['order'] = order_instance
         else:
             return redirect('home_page')
 
         return render(request, 'order-success.html', user_ctx)
+    
     return render(request, 'order-success.html', user_ctx)
 
 @login_required(login_url='login_page')
@@ -216,23 +191,11 @@ def profile_page(request):
     if request.user.is_superuser:
         return redirect('home_page')
     elif request.user.is_staff:
-        # Requirements
         site_settings = SiteSettings.objects.last()
-
         cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-        cart_item_count = len(cart_items)
-
-        if Order.objects.first():
-            order_id = int(Order.objects.first().id) + 1
-        else:
-            order_id = 1
-
-        # Main
+        cart_item_count = cart_items.count()
+        order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
         user_orders = Order.objects.filter(foydalanuvchi=request.user)
-
-        user_orders_1 = Order.objects.filter(foydalanuvchi=request.user, status='1')
-        user_orders_2 = Order.objects.filter(foydalanuvchi=request.user, status='2')
-        user_orders_3 = Order.objects.filter(foydalanuvchi=request.user, status='3')
 
         user_ctx = {
             'site_settings': site_settings,
@@ -240,13 +203,12 @@ def profile_page(request):
             'cart_items': cart_items,
             'cart_item_count': cart_item_count,
             'user_orders': user_orders,
-
-            'user_orders_1': user_orders_1,
-            'user_orders_2': user_orders_2,
-            'user_orders_3': user_orders_3,
+            'user_orders_1': user_orders.filter(status='1'),
+            'user_orders_2': user_orders.filter(status='2'),
+            'user_orders_3': user_orders.filter(status='3'),
         }
-        return render(request, 'user-profile.html', user_ctx)
 
+        return render(request, 'user-profile.html', user_ctx)
 
 @login_required(login_url='login_page')
 def order_detail_page(request, pk):
@@ -254,188 +216,148 @@ def order_detail_page(request, pk):
         return redirect('home_page')
     elif request.user.is_staff:
         order = get_object_or_404(Order, id=pk)
-        # Requirements
         site_settings = SiteSettings.objects.last()
-
         cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
-        cart_item_count = len(cart_items)
-
-        if Order.objects.first():
-            order_id = int(Order.objects.first().id) + 1
-        else:
-            order_id = 1
-
-        # Main
-
+        cart_item_count = cart_items.count()
+        order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
 
         user_ctx = {
             'site_settings': site_settings,
             'order_id': order_id,
             'cart_items': cart_items,
             'cart_item_count': cart_item_count,
-
-            # Main
             'order': order,
         }
+
         return render(request, 'order-detail.html', user_ctx)
 
 @login_required(login_url='login_page')
 def superadmin_all_orders_page(request):
     if request.user.is_superuser:
-        # Required
         site_settings = SiteSettings.objects.last()
 
-        # Main
-        orders = Order.objects.all()
+        if request.user.username == "sklad":
+            orders = Order.objects.filter(kimga="2")
+        else:
+            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
 
-        orders_1 = Order.objects.filter(status='1')
-        orders_2 = Order.objects.filter(status='2')
-        orders_3 = Order.objects.filter(status='3')
-
-        # CTX
         admin_ctx = {
-            # Required
             'site_settings': site_settings,
-
-            # Main
             'orders': orders,
-            'orders_1': orders_1,
-            'orders_2': orders_2,
-            'orders_3': orders_3,
+            'orders_1': orders.filter(status='1'),
+            'orders_2': orders.filter(status='2'),
+            'orders_3': orders.filter(status='3'),
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
+    
     else:
-        redirect('home_page')
+        return redirect('home_page')
 
 @login_required(login_url='login_page')
 def superadmin_orders_1_page(request):
     if request.user.is_superuser:
-        # Required
         site_settings = SiteSettings.objects.last()
 
-        # Main
-        orders = Order.objects.filter(status='1')
+        if request.user.username == "sklad":
+            orders = Order.objects.filter(kimga="2", status='1')
+        else:
+            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None), status='1')
 
-        orders_1 = Order.objects.filter(status='1')
-        orders_2 = Order.objects.filter(status='2')
-        orders_3 = Order.objects.filter(status='3')
-
-        # CTX
         admin_ctx = {
-            # Required
             'site_settings': site_settings,
-
-            # Main
             'orders': orders,
-            'orders_1': orders_1,
-            'orders_2': orders_2,
-            'orders_3': orders_3,
+            'orders_1': orders,
+            'orders_2': orders.filter(status='2'),
+            'orders_3': orders.filter(status='3'),
         }
+
         return render(request, 'admin-all-orders.html', admin_ctx)
+    
     else:
-        redirect('home_page')
+        return redirect('home_page')
 
 @login_required(login_url='login_page')
 def superadmin_orders_2_page(request):
     if request.user.is_superuser:
-        # Required
         site_settings = SiteSettings.objects.last()
 
-        # Main
-        orders = Order.objects.filter(status='2')
+        if request.user.username == "sklad":
+            orders = Order.objects.filter(kimga="2", status='2')
+        else:
+            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None), status='2')
 
-        orders_1 = Order.objects.filter(status='1')
-        orders_2 = Order.objects.filter(status='2')
-        orders_3 = Order.objects.filter(status='3')
-
-        # CTX
         admin_ctx = {
-            # Required
             'site_settings': site_settings,
-
-            # Main
             'orders': orders,
-            'orders_1': orders_1,
-            'orders_2': orders_2,
-            'orders_3': orders_3,
+            'orders_1': orders.filter(status='1'),
+            'orders_2': orders,
+            'orders_3': orders.filter(status='3'),
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
+    
     else:
-        redirect('home_page')
+        return redirect('home_page')
 
 @login_required(login_url='login_page')
 def superadmin_orders_3_page(request):
     if request.user.is_superuser:
-        # Required
         site_settings = SiteSettings.objects.last()
 
-        # Main
-        orders = Order.objects.filter(status='3')
+        if request.user.username == "sklad":
+            orders = Order.objects.filter(kimga="2", status='3')
+        else:
+            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None), status='3')
 
-        orders_1 = Order.objects.filter(status='1')
-        orders_2 = Order.objects.filter(status='2')
-        orders_3 = Order.objects.filter(status='3')
-
-        # CTX
         admin_ctx = {
-            # Required
             'site_settings': site_settings,
-
-            # Main
             'orders': orders,
-            'orders_1': orders_1,
-            'orders_2': orders_2,
-            'orders_3': orders_3,
+            'orders_1': orders.filter(status='1'),
+            'orders_2': orders.filter(status='2'),
+            'orders_3': orders,
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
+    
     else:
-        redirect('home_page')
+        return redirect('home_page')
 
 @login_required(login_url='login_page')
 def superadmin_edit_order_page(request, pk):
     if request.user.is_superuser:
-        # Main
         order = get_object_or_404(Order, id=pk)
+
         if request.method == "POST":
-            if request.POST.get('sabab'):
+            if 'sabab' in request.POST:
                 order.status = '3'
-                order.bekor_qilish_sababi = request.POST.get('sabab', None)
+                order.bekor_qilish_sababi = request.POST.get('sabab')
                 order.save()
-            elif request.POST.get('parol'):
+            elif 'parol' in request.POST:
                 parol_input = request.POST.get('parol')
                 parol = AdminParol.objects.last()
-
-                if parol is None:
-                    parol = 1111
-
-                if int(parol_input) == int(parol.parol):
+                if parol and int(parol_input) == int(parol.parol):
                     order.status = '2'
                     order.save()
 
-        # Required
         site_settings = SiteSettings.objects.last()
 
-        # CTX
         admin_ctx = {
-            # Required
             'site_settings': site_settings,
-
-            # Main
             'order': order,
         }
 
         return render(request, 'admin-order-edit.html', admin_ctx)
+    
     else:
-        redirect('home_page')
+        return redirect('home_page')
+
 @login_required(login_url='login_page')
 def superadmin_order_status_2(request, pk):
     if request.user.is_superuser:
-        # Main
         order = get_object_or_404(Order, id=pk)
-        if order:
-            order.status = '2'
-            order.save()
-            return redirect('superadmin_edit_order_page', pk=pk)
+        order.status = '2'
+        order.save()
+        return redirect('superadmin_edit_order_page', pk=pk)
+    else:
+        return redirect('home_page')
