@@ -9,10 +9,8 @@ def login_page(request):
         return redirect('home_page')
 
     if request.method == 'POST':
-        print('1')
         form = LoginForm(request.POST)
         if form.is_valid():
-            print('2')
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
@@ -20,7 +18,8 @@ def login_page(request):
                 login(request, user)
                 return redirect('home_page')
             else:
-                return render(request, 'auth/login.html', {"error": "Login yoki parol noto'g'ri!"})
+                return render(request, 'auth/login.html',
+                              {"error": "Login yoki parol noto'g'ri!"})
     else:
         form = LoginForm()
     return render(request, 'auth/login.html', {'form': form})

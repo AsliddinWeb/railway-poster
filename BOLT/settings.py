@@ -10,7 +10,8 @@ SECRET_KEY = 'django-insecure-yh#xj0(y^prqm(algsngjtz#q%zn$+050hhuzw--x_t!-5ys*0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['stand-metro.uz', 'www.stand-metro.uz', '167.71.49.146', 'localhost']
+# ALLOWED_HOSTS = ['stand-metro.uz', 'www.stand-metro.uz', '167.71.49.146', 'localhost']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -42,6 +43,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# settings.py
+
+# Redirect to the login page or home after logging out
+LOGOUT_REDIRECT_URL = '/'
+LOGOUT_URL = '/'
+
+
 ROOT_URLCONF = 'BOLT.urls'
 
 TEMPLATES = [
@@ -66,16 +74,25 @@ WSGI_APPLICATION = 'BOLT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'bolt_db',
+#         'USER': 'bolt_user',
+#         'PASSWORD': 'Bo^725726lyKGerYJ',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bolt_db',
-        'USER': 'bolt_user',
-        'PASSWORD': 'Bo^725726lyKGerYJ',
-        'HOST': 'localhost',
-        'PORT': '',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3",
     }
 }
+
 
 
 # Password validation
@@ -138,25 +155,25 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # JAZZMIN SETTINGS
 JAZZMIN_SETTINGS = {
-    "site_title": "VAGON-DEPOS | Superadminstrator",
+    "site_title": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI | SUPERADMIN",
 
-    "site_header": "VAGON-DEPOS",
+    "site_header": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI",
 
-    "site_brand": "VAGON-DEPOS",
+    "site_brand": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI",
 
-    "site_logo": "custom/logo.png",
+    "site_logo": "custom/1.png",
 
-    "login_logo": "custom/logo.png",
+    "login_logo": "custom/1.png",
 
-    "login_logo_dark": "custom/logo.png",
+    "login_logo_dark": "custom/1.png",
 
     "site_logo_classes": "img-circle",
 
     "site_icon": None,
 
-    "welcome_sign": "VAGON-DEPOS Admin paneliga xush kelibsiz!",
+    "welcome_sign": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI - ADMIN PANELIGA XUSH KELIBSIZ!",
 
-    "copyright": "VAGON-DEPOS",
+    "copyright": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI",
 
     "search_model": ["product_app.Maxsulot", "product_app.Order"],
 

@@ -27,7 +27,7 @@
                     <div class="logo">
                         <a href="{% url 'home_page' %}">
                             <div class="logo-img" style="height: 5rem;">
-                                <img src="{% static 'logo-vagon.png' %}">
+                                <img src="{% static 'custom/logo.png' %}">
                         </div>
                             <div class="logo-text">{{ site_settings.brand_name }}</div>
                         </a>
@@ -468,7 +468,7 @@ function closeModal() {
     function logoutConfirm() {
         var confirmation = confirm("Rostdan ham tizimni tark etmoqchimisiz?");
         if (confirmation) {
-            console.log("Ok")
+            console.log("Ha")
             window.location.href = '/auth/logout/';
         } else {
             console.log("Yo'q")
