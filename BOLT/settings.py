@@ -74,24 +74,24 @@ WSGI_APPLICATION = 'BOLT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'bolt_db',
-#         'USER': 'bolt_user',
-#         'PASSWORD': 'Bo^725726lyKGerYJ',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bold',
+        'USER': 'postgres',
+        'PASSWORD': '22',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "db.sqlite3",
+#     }
+# }
 
 
 
@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 MEDIA_URL = '/media/'
@@ -155,11 +155,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # JAZZMIN SETTINGS
 JAZZMIN_SETTINGS = {
-    "site_title": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI | SUPERADMIN",
+    "site_title": "RAILWAY POSTER",
 
-    "site_header": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI",
+    "site_header": "RAILWAY POSTER",
 
-    "site_brand": "QARSHI TEMIR YO‘L TA'MIRLASH KORXONASI",
+    "site_brand": "RAILWAY POSTER",
 
     "site_logo": "custom/1.png",
 

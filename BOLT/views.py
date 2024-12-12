@@ -74,7 +74,7 @@ def home_page(request):
 
 @login_required(login_url='login_page')
 def user_sklad(request):
-    if request.user.is_staff:
+    if request.user.is_staff and request.user.username == "sklad":
         site_settings = SiteSettings.objects.last()
         kategoriya = get_object_or_404(Kategoriya, pk=2)
         maxsulotlar = Maxsulot.objects.filter(kategoriya=kategoriya)
@@ -117,7 +117,7 @@ def add_to_cart(request, product_id):
 
         if cart_item.exists():
             cart_item.delete()
-        
+
         CartItems.objects.create(
             maxsulot=product,
             soni=int(request.POST.get('qty', 1)),
@@ -125,8 +125,44 @@ def add_to_cart(request, product_id):
         )
 
         return redirect('home_page')
-    
+
     return redirect('home_page')
+
+
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+@csrf_exempt  # Remove this in production and use proper CSRF handling
+@login_required
+def update_cart_quantity(request):
+    if request.method == "POST":
+        try:
+            # Parse JSON body
+            data = json.loads(request.body)
+            cart_item_id = data.get("cart_item_id")
+            new_quantity = data.get("new_quantity")
+
+            if not cart_item_id or not new_quantity:
+                return JsonResponse({"success": False, "message": "Invalid data"})
+
+            cart_item = CartItems.objects.get(id=cart_item_id, foydalanuvchi=request.user)
+            cart_item.soni = int(new_quantity)
+            cart_item.save()
+
+            return JsonResponse({"success": True, "message": "Quantity updated successfully"})
+        except CartItems.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Cart item not found"})
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "message": "Invalid JSON"})
+        except Exception as e:
+            return JsonResponse({"success": False, "message": f"Error: {str(e)}"})
+
+    return JsonResponse({"success": False, "message": "Invalid request"})
+
+
+
 
 @login_required(login_url='login_page')
 def remove_item_cart(request, item_id):
@@ -238,92 +274,120 @@ def superadmin_all_orders_page(request):
         site_settings = SiteSettings.objects.last()
 
         if request.user.username == "sklad":
-            orders = Order.objects.filter(kimga="2")
+            all_orders = Order.objects.filter(kimga="2")
         else:
-            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
-
+            all_orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
+        orders = all_orders.filter(status='1')  # Only orders with status '1'
+        orders_1_count = all_orders.filter(status='1').count()
+        orders_2_count = all_orders.filter(status='2').count()
+        orders_3_count = all_orders.filter(status='3').count()
         admin_ctx = {
             'site_settings': site_settings,
             'orders': orders,
-            'orders_1': orders.filter(status='1'),
-            'orders_2': orders.filter(status='2'),
-            'orders_3': orders.filter(status='3'),
+            'orders_1': orders_1_count,
+            'orders_2': orders_2_count,
+            'orders_3': orders_3_count,
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
     
     else:
         return redirect('home_page')
+
+
 
 @login_required(login_url='login_page')
 def superadmin_orders_1_page(request):
     if request.user.is_superuser:
         site_settings = SiteSettings.objects.last()
 
+        # Retrieve all relevant orders based on `kimga` and `username`
         if request.user.username == "sklad":
-            orders = Order.objects.filter(kimga="2", status='1')
+            all_orders = Order.objects.filter(kimga="2")
         else:
-            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None), status='1')
+            all_orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
+
+        # Filter for each status
+        orders = all_orders.filter(status='1')  # Only orders with status '1'
+        orders_1_count = all_orders.filter(status='1').count()
+        orders_2_count = all_orders.filter(status='2').count()
+        orders_3_count = all_orders.filter(status='3').count()
 
         admin_ctx = {
             'site_settings': site_settings,
             'orders': orders,
-            'orders_1': orders,
-            'orders_2': orders.filter(status='2'),
-            'orders_3': orders.filter(status='3'),
+            'orders_1': orders_1_count,
+            'orders_2': orders_2_count,
+            'orders_3': orders_3_count,
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
-    
     else:
         return redirect('home_page')
+
+
+
+
 
 @login_required(login_url='login_page')
 def superadmin_orders_2_page(request):
     if request.user.is_superuser:
         site_settings = SiteSettings.objects.last()
 
+        # Retrieve all relevant orders based on `kimga` and `username`
         if request.user.username == "sklad":
-            orders = Order.objects.filter(kimga="2", status='2')
+            all_orders = Order.objects.filter(kimga="2")
         else:
-            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None), status='2')
+            all_orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
+
+        # Filter for each status
+        orders = all_orders.filter(status='2')  # Only orders with status '2'
+        orders_1_count = all_orders.filter(status='1').count()
+        orders_2_count = all_orders.filter(status='2').count()
+        orders_3_count = all_orders.filter(status='3').count()
 
         admin_ctx = {
             'site_settings': site_settings,
             'orders': orders,
-            'orders_1': orders.filter(status='1'),
-            'orders_2': orders,
-            'orders_3': orders.filter(status='3'),
+            'orders_1': orders_1_count,
+            'orders_2': orders_2_count,
+            'orders_3': orders_3_count,
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
-    
     else:
         return redirect('home_page')
+
+
 
 @login_required(login_url='login_page')
 def superadmin_orders_3_page(request):
     if request.user.is_superuser:
         site_settings = SiteSettings.objects.last()
 
+        # Retrieve all relevant orders based on `kimga` and `username`
         if request.user.username == "sklad":
-            orders = Order.objects.filter(kimga="2", status='3')
+            all_orders = Order.objects.filter(kimga="2")
         else:
-            orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None), status='3')
+            all_orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
+
+        # Filter for each status
+        orders = all_orders.filter(status='3')  # Only orders with status '3'
+        orders_1_count = all_orders.filter(status='1').count()
+        orders_2_count = all_orders.filter(status='2').count()
+        orders_3_count = all_orders.filter(status='3').count()
 
         admin_ctx = {
             'site_settings': site_settings,
             'orders': orders,
-            'orders_1': orders.filter(status='1'),
-            'orders_2': orders.filter(status='2'),
-            'orders_3': orders,
+            'orders_1': orders_1_count,
+            'orders_2': orders_2_count,
+            'orders_3': orders_3_count,
         }
 
         return render(request, 'admin-all-orders.html', admin_ctx)
-    
     else:
         return redirect('home_page')
-
 @login_required(login_url='login_page')
 def superadmin_edit_order_page(request, pk):
     if request.user.is_superuser:
@@ -342,10 +406,17 @@ def superadmin_edit_order_page(request, pk):
                     order.save()
 
         site_settings = SiteSettings.objects.last()
+        orders_1_count = Order.objects.filter(status='1').count()
+        orders_2_count = Order.objects.filter(status='2').count()
+        orders_3_count = Order.objects.filter(status='3').count()
+        print(f"Counts : {orders_1_count}, {orders_2_count}, {orders_3_count}")
 
         admin_ctx = {
             'site_settings': site_settings,
             'order': order,
+            "orders_1": orders_1_count,
+            "orders_2": orders_2_count,
+            "orders_3": orders_3_count
         }
 
         return render(request, 'admin-order-edit.html', admin_ctx)

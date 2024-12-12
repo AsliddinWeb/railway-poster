@@ -9,7 +9,7 @@ from .views import home_page, \
     add_to_cart, remove_item_cart, remove_all_cart, order_page, profile_page, \
     order_detail_page, superadmin_all_orders_page, \
     superadmin_orders_1_page, superadmin_orders_2_page, superadmin_orders_3_page, \
-    superadmin_edit_order_page, superadmin_order_status_2, user_sklad
+    superadmin_edit_order_page, superadmin_order_status_2, user_sklad, update_cart_quantity
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,8 @@ urlpatterns = [
 
     # User
     path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
+    path('update-cart-quantity/', update_cart_quantity, name='update_cart_quantity'),
+
     path('remove-item-cart/<int:item_id>/', remove_item_cart, name='remove_item_cart'),
 
     path('remove-all-cart/', remove_all_cart, name='remove_all_cart'),

@@ -44,10 +44,10 @@
 
         <div class="menu">
             <form class="menu-search" name="header_search_form">
-                <div class="menu-search-icon"><i class="fa fa-search"></i></div>
-                <div class="menu-search-input">
-                    <input type="text" class="form-control" placeholder="Qidiruv...">
-                </div>
+{#                <div class="menu-search-icon"><i class="fa fa-search"></i></div>#}
+{#                <div class="menu-search-input">#}
+{#                    <input type="text" class="form-control" placeholder="Qidiruv...">#}
+{#                </div>#}
             </form>
             <div class="menu-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
@@ -76,38 +76,38 @@
         <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
 
             <div class="menu">
-                <div class="menu-header">Boshqaruv</div>
+                <div class="menu-header" >Boshqaruv</div>
                 <div class="menu-item active">
                     <a href="{% url 'home_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa fa-laptop"></i></span>
-                        <span class="menu-text">Bosh sahifa</span>
+                        <span class="menu-text" >Bosh sahifa</span>
                     </a>
                 </div>
 
                 <div class="menu-divider"></div>
-                <div class="menu-header">Buyurtmalar</div>
+                <div class="menu-header" >Buyurtmalar</div>
                 <div class="menu-item">
                     <a href="{% url 'superadmin_all_orders_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa fa-chart-pie"></i></span>
-                        <span class="menu-text">Barchasi</span>
+                        <span class="menu-text"><span >Barchasi</span></span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a href="{% url 'superadmin_orders_1_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa fa-chart-bar"></i></span>
-                        <span class="menu-text text-warning">Buyurtma berilganlar ({{ orders_1|length }})</span>
+                        <span class="menu-text text-warning" >Buyurtma berilganlar ({{ orders_1 }})</span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a href="{% url 'superadmin_orders_2_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa-solid fa-check"></i></span>
-                        <span class="menu-text text-success">Yetkazib berilganlar({{ orders_2|length }})</span>
+                        <span class="menu-text text-success" >Yetkazib berilganlar ({{ orders_2 }})</span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a href="{% url 'superadmin_orders_3_page' %}" class="menu-link">
                         <span class="menu-icon"><i class="fa fa-question-circle"></i></span>
-                        <span class="menu-text text-danger">Bekor qilinganlar ({{ orders_3|length }})</span>
+                        <span class="menu-text text-danger" >Bekor qilinganlar ({{ orders_3 }})</span>
                     </a>
                 </div>
 
@@ -128,7 +128,7 @@
 
     <div id="content" class="app-content">
         <h1 class="page-header mb-3">
-            Salom! <small>{{ request.user.role }}!</small>
+            Salom xush kelibsiz - <span style="color: #0a53be; font-size: 30px; font-weight: bold; text-transform: capitalize;font-family: 'Jost', sans-serif;">{{ request.user.username }}</span>
         </h1>
         <div class="row bg-white p-3">
             <div class="col-12">
