@@ -365,7 +365,7 @@
 
 // Modal oynasi HTML elementini tanlash
 var modalPosItem = document.getElementById('modalPosItem');
-    console.log("ISHGA TUSHDI")
+    console.log(modalPosItem)
 
 // Modal pos product nomli localStorage kalitini olish
 var localStorageKey = 'product';
