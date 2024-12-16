@@ -58,7 +58,7 @@ def home_page(request):
         cart_items = CartItems.objects.filter(foydalanuvchi=request.user)
         cart_item_count = cart_items.count()
         order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
-
+        print(f"Mahsulotlar : {maxsulotlar}")
         user_ctx = {
             'site_settings': site_settings,
             'maxsulotlar': maxsulotlar,
@@ -67,6 +67,7 @@ def home_page(request):
             'cart_item_count': cart_item_count,
         }
 
+
         return render(request, 'user-home.html', user_ctx)
     
     else:
@@ -74,7 +75,7 @@ def home_page(request):
 
 @login_required(login_url='login_page')
 def user_sklad(request):
-    if request.user.is_staff and request.user.username == "sklad":
+    if request.user.is_staff:
         site_settings = SiteSettings.objects.last()
         kategoriya = get_object_or_404(Kategoriya, pk=2)
         maxsulotlar = Maxsulot.objects.filter(kategoriya=kategoriya)
@@ -329,6 +330,40 @@ def superadmin_orders_1_page(request):
 
 
 
+# @login_required(login_url='login_page')
+# def superadmin_orders_2_page(request):
+#     if request.user.is_superuser:
+#         site_settings = SiteSettings.objects.last()
+#
+#         # Retrieve all relevant orders based on `kimga` and `username`
+#         if request.user.username == "sklad":
+#             all_orders = Order.objects.filter(kimga="2")
+#         else:
+#             all_orders = Order.objects.filter(Q(kimga="1") | Q(kimga=None))
+#
+#         # Filter for each status
+#         orders = all_orders.filter(status='2')  # Only orders with status '2'
+#         orders_1_count = all_orders.filter(status='1').count()
+#         orders_2_count = all_orders.filter(status='2').count()
+#         orders_3_count = all_orders.filter(status='3').count()
+#
+#         admin_ctx = {
+#             'site_settings': site_settings,
+#             'orders': orders,
+#             'orders_1': orders_1_count,
+#             'orders_2': orders_2_count,
+#             'orders_3': orders_3_count,
+#         }
+#
+#         return render(request, 'admin-all-orders.html', admin_ctx)
+#     else:
+#         return redirect('home_page')
+
+
+
+from django.core.paginator import Paginator
+from django.db.models import Q
+
 @login_required(login_url='login_page')
 def superadmin_orders_2_page(request):
     if request.user.is_superuser:
@@ -346,9 +381,14 @@ def superadmin_orders_2_page(request):
         orders_2_count = all_orders.filter(status='2').count()
         orders_3_count = all_orders.filter(status='3').count()
 
+        # Pagination logic
+        paginator = Paginator(orders, 10)  # Show 10 orders per page
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         admin_ctx = {
             'site_settings': site_settings,
-            'orders': orders,
+            'orders': page_obj,  # Pass paginated orders
             'orders_1': orders_1_count,
             'orders_2': orders_2_count,
             'orders_3': orders_3_count,
@@ -357,6 +397,7 @@ def superadmin_orders_2_page(request):
         return render(request, 'admin-all-orders.html', admin_ctx)
     else:
         return redirect('home_page')
+
 
 
 

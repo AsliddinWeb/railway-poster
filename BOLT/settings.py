@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'BOLT.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bold',
+        'NAME': 'bolt',
         'USER': 'postgres',
         'PASSWORD': '22',
         'HOST': 'localhost',
