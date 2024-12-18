@@ -61,7 +61,7 @@ class Order(models.Model):
         order_item = self.maxsulotlar.all().first()
         if order_item:
             return f"{order_item.maxsulot.nomi} x {order_item.soni}"
-        return "Mahsulot topilmadi"
+        return "No items in the order"
 
     class Meta:
         ordering = ['-id']

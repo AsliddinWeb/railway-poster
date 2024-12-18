@@ -224,6 +224,9 @@ def order_page(request):
     
     return render(request, 'order-success.html', user_ctx)
 
+
+
+
 @login_required(login_url='login_page')
 def profile_page(request):
     if request.user.is_superuser:
@@ -235,18 +238,48 @@ def profile_page(request):
         order_id = (Order.objects.first().id + 1) if Order.objects.first() else 1
         user_orders = Order.objects.filter(foydalanuvchi=request.user)
 
+        user_orders_1 = user_orders.filter(status='1')
+        user_orders_2 = user_orders.filter(status='2')
+        user_orders_3 = user_orders.filter(status='3')
+
+        # Pagination logic for all orders
+        page_number = request.GET.get('page')
+        paginator = Paginator(user_orders, 10)
+        page_obj = paginator.get_page(page_number)
+
+        # Pagination logic for status '1'
+        page_number_1 = request.GET.get('page_1')
+        paginator_1 = Paginator(user_orders_1, 10)
+        page_obj_1 = paginator_1.get_page(page_number_1)
+
+        # Pagination logic for status '2'
+        page_number_2 = request.GET.get('page_2')
+        paginator_2 = Paginator(user_orders_2, 10)
+        page_obj_2 = paginator_2.get_page(page_number_2)
+
+        # Pagination logic for status '3'
+        page_number_3 = request.GET.get('page_3')
+        paginator_3 = Paginator(user_orders_3, 10)
+        page_obj_3 = paginator_3.get_page(page_number_3)
+
         user_ctx = {
             'site_settings': site_settings,
             'order_id': order_id,
             'cart_items': cart_items,
             'cart_item_count': cart_item_count,
-            'user_orders': user_orders,
-            'user_orders_1': user_orders.filter(status='1'),
-            'user_orders_2': user_orders.filter(status='2'),
-            'user_orders_3': user_orders.filter(status='3'),
+            'user_orders': page_obj,
+            'user_orders_1': page_obj_1,
+            'user_orders_2': page_obj_2,
+            'user_orders_3': page_obj_3,
         }
 
         return render(request, 'user-profile.html', user_ctx)
+
+
+
+
+
+
 
 @login_required(login_url='login_page')
 def order_detail_page(request, pk):

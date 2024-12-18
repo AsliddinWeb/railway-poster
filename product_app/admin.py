@@ -34,7 +34,7 @@ class OrderAdmin(ImportExportMixin, admin.ModelAdmin):
         Export orders using an XLSX template.
         """
         # Resolve the path to the template
-        template_path = os.path.join(BASE_DIR, "static", "succes_orders.xlsx")
+        template_path = os.path.join(BASE_DIR, "static", "buyurtmalar1.xlsx")
         if not os.path.exists(template_path):
             self.message_user(request, f"Shablon topilmadi {template_path}", level='error')
             return
@@ -48,7 +48,7 @@ class OrderAdmin(ImportExportMixin, admin.ModelAdmin):
             xlsx_content,
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
-        response['Content-Disposition'] = 'attachment; filename="succes_orders.xlsx"'
+        response['Content-Disposition'] = 'attachment; filename="buyurtmalar1.xlsx"'
         return response
 
     export_orders_with_template.short_description = "Yetkazib berilgan mahsulotlarni yuklash"

@@ -23,7 +23,7 @@
 }
 
 #myTable th {
-    background-color: #0eaf58;
+    background-color:#2196f3;
     color: #fff;
     font-weight: bold;
     text-align: left;
@@ -326,7 +326,7 @@
 <!-- Pagination Controls -->
 <div class="d-flex justify-content-between align-items-center mt-3">
     <div class="text-muted">
-Mana bu buyurtmalarni {{ orders.start_index }} dan {{ orders.end_index }} gacha, jami {{ orders.paginator.count }} ta buyurtma    </div>
+Buyurtmalarni {{ orders.start_index }} dan {{ orders.end_index }} gacha, jami {{ orders.paginator.count }} ta buyurtma    </div>
     <nav aria-label="Page navigation">
         <ul class="pagination">
             {% if orders.has_previous %}

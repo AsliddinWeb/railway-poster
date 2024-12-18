@@ -28,7 +28,7 @@
                         <a href="{% url 'home_page' %}">
                             <div class="logo-img" style="height: 5rem;">
                                 <img src="{% static 'custom/logo.png' %}">
-                        </div>
+                            </div>
                             <div class="logo-text">{{ site_settings.brand_name }}</div>
                         </a>
                     </div>
@@ -67,9 +67,9 @@
                                     <div class="profile-header-cover"></div>
                                     <div class="profile-header-content">
                                         <div class="profile-header-img">
-                                          {% if request.user.image %}
-                                            <img src="{{ request.user.image.url }}" alt="">
-                                          {% endif %}
+                                            {% if request.user.image %}
+                                                <img src="{{ request.user.image.url }}" alt="">
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -80,9 +80,10 @@
                                     <div class="profile-sidebar">
                                         <div class="desktop-sticky-top">
 
-                                            <h4>Rol : {{ request.user.role }}</h4>
+                                            <h4 style="text-align: center">Rol : {{ request.user.role }}</h4>
                                             <br>
-                                            <div class="fw-500 mb-3 text-muted mt-n2">Username : {{ request.user.username }}</div>
+                                            <div class="fw-500 mb-3 text-muted mt-n2">Username
+                                                : {{ request.user.username }}</div>
 
                                             <div class="mb-1">
                                                 <i class="fa fa-map-marker-alt fa-fw text-muted"></i> {{ request.user.location }}
@@ -91,298 +92,514 @@
                                     </div>
 
                                 </div>
-                            
-                            <div class="profile-content">
-                                        <div class="row">
-                                            <div id="content" class="app-content p-0">
-                                                <div class="d-flex justify-content-between mb-3">
-                                                    <div class="mx-1">
-                                                        <h1 class="page-header mb-0">Barcha buyurtmalarim:</h1>
-                                                    </div>
-                                                    <div class="mt-md-0 mt-2">                                                    </div>
+
+                                <div class="profile-content">
+                                    <div class="row">
+                                        <div id="content" class="app-content p-0">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <div class="mx-1">
+                                                    <h1 class="page-header mb-0">Barcha buyurtmalarim:</h1>
                                                 </div>
-                                                <div class="card">
-                                                    <ul class="nav nav-tabs nav-tabs-v2 px-4" role="tablist">
-                                                        <li class="nav-item me-3" role="presentation">
-                                                            <a href="#barchasi" class="nav-link px-2 active fw-bold" data-bs-toggle="tab" aria-selected="true" role="tab">Barchasi</a>
-                                                        </li>
-                                                        <li class="nav-item me-3" role="presentation">
-                                                            <a href="#buyurtmaBerilgan" class="nav-link px-2 text-warning fw-bold" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Buyurtma berilgan</a>
-                                                        </li>
-                                                        <li class="nav-item me-3" role="presentation">
-                                                            <a href="#yetqazibBerilgan" class="nav-link px-2 text-success fw-bold" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Yetkazib berilgan</a>
-                                                        </li>
-                                                        <li class="nav-item me-3" role="presentation">
-                                                            <a href="#bekorQilingan" class="nav-link px-2 text-danger fw-bold" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Bekor qilingan</a>
-                                                        </li>
-                                                    </ul>
+                                                <div class="mt-md-0 mt-2"></div>
+                                            </div>
+                                            <div class="card">
+                                                <ul class="nav nav-tabs nav-tabs-v2 px-4" role="tablist">
+                                                    <li class="nav-item me-3" role="presentation">
+                                                        <a href="#barchasi" class="nav-link px-2 active fw-bold"
+                                                           data-bs-toggle="tab" aria-selected="true"
+                                                           role="tab">Barchasi</a>
+                                                    </li>
+                                                    <li class="nav-item me-3" role="presentation">
+                                                        <a href="#buyurtmaBerilgan"
+                                                           class="nav-link px-2 text-warning fw-bold"
+                                                           data-bs-toggle="tab" aria-selected="false" role="tab"
+                                                           tabindex="-1">Buyurtma berilgan</a>
+                                                    </li>
+                                                    <li class="nav-item me-3" role="presentation">
+                                                        <a href="#yetqazibBerilgan"
+                                                           class="nav-link px-2 text-success fw-bold"
+                                                           data-bs-toggle="tab" aria-selected="false" role="tab"
+                                                           tabindex="-1">Yetkazib berilgan</a>
+                                                    </li>
+                                                    <li class="nav-item me-3" role="presentation">
+                                                        <a href="#bekorQilingan"
+                                                           class="nav-link px-2 text-danger fw-bold"
+                                                           data-bs-toggle="tab" aria-selected="false" role="tab"
+                                                           tabindex="-1">Bekor qilingan</a>
+                                                    </li>
+                                                </ul>
 
-                                                    <div class="tab-content p-4">
-                                                        <div class="tab-pane fade active show" id="barchasi"
-                                                             role="tabpanel">
+                                                <div class="tab-content p-4">
 
-                                                            <div class="input-group mb-4">
-                                                                <div class="flex-fill position-relative">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control ps-35px"
-                                                                               placeholder="Buyurtmalarni saralash">
-                                                                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-                                                                             style="z-index: 1020;">
-                                                                            <i class="fa fa-search opacity-5"></i>
-                                                                        </div>
+
+                                                    <div class="tab-pane fade active show" id="barchasi"
+                                                         role="tabpanel">
+
+                                                        <div class="input-group mb-4">
+                                                            <div class="flex-fill position-relative">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control ps-35px"
+                                                                           placeholder="Buyurtmalarni saralash">
+                                                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                                                         style="z-index: 1020;">
+                                                                        <i class="fa fa-search opacity-5"></i>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-
-
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover text-nowrap">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Jami soni</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Xolati</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {% for order in user_orders %}
-                                                                            <tr>
-                                                                                <td class="align-middle">
-                                                                                    <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
-                                                                                </td>
-                                                                                <td class="align-middle">
-                                                                                    {% for i in order.maxsulotlar.all %}
-                                                                                        {{ i }},<br>
-                                                                                    {% endfor %}
-                                                                                </td>
-                                                                                <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
-                                                                                <td class="py-1 align-middle">
-                                                                                    {% if order.status == '1' %}
-                                                                                        <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
-                                                                                        </span>
-                                                                                    {% elif order.status == '2' %}
-                                                                                        <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
-                                                                                        </span>
-                                                                                    {% elif order.status == '3' %}
-                                                                                        <span class="badge bg-danger text-danger-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-danger fs-9px fa-fw me-5px"></i> Bekor qilindi
-                                                                                        </span>
-                                                                                    {% endif %}
-                                                                                </td>
-
-                                                                             </tr>
-                                                                        {% endfor %}
-                                                                    </tbody>
-                                                                </table>
                                                             </div>
                                                         </div>
 
-                                                        <div class="tab-pane fade" id="buyurtmaBerilgan"
-                                                             role="tabpanel">
-
-                                                            <div class="input-group mb-4">
-                                                                <div class="flex-fill position-relative">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control ps-35px"
-                                                                               placeholder="Buyurtmalarni saralash">
-                                                                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-                                                                             style="z-index: 1020;">
-                                                                            <i class="fa fa-search opacity-5"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover text-nowrap">
-                                                                    <thead>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover text-nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Jami soni</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Xolati</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for order in user_orders %}
                                                                     <tr>
-                                                                        <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Jami soni</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Xolati</th>
+                                                                        <td class="align-middle">
+                                                                            <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
+                                                                        </td>
+                                                                        <td class="align-middle">
+                                                                            {% for i in order.maxsulotlar.all %}
+                                                                                {{ i }},<br>
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                        <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
+                                                                        <td class="py-1 align-middle">
+                                                                            {% if order.status == '1' %}
+                                                                                <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
+                                                                                d-inline-flex align-items-center">
+                                                                                <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
+                                                                            </span>
+                                                                                                                                {% elif order.status == '2' %}
+                                                                                                                                    <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
+                                                                                d-inline-flex align-items-center">
+                                                                                <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
+                                                                            </span>
+                                                                                                                                {% elif order.status == '3' %}
+                                                                                                                                    <span class="badge bg-danger text-danger-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
+                                                                                d-inline-flex align-items-center">
+                                                                                <i class="fa fa-circle text-danger fs-9px fa-fw me-5px"></i> Bekor qilindi
+                                                                            </span>
+                                                                            {% endif %}
+                                                                        </td>
                                                                     </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {% for order in user_orders_1 %}
-                                                                            <tr>
-                                                                                <td class="align-middle">
-                                                                                    <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
-                                                                                </td>
-                                                                                <td class="align-middle">
-                                                                                    {% for i in order.maxsulotlar.all %}
-                                                                                        {{ i }},<br>
-                                                                                    {% endfor %}
-                                                                                </td>
-                                                                                <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
-                                                                                <td class="py-1 align-middle">
-                                                                                    {% if order.status == '1' %}
-                                                                                        <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
-                                                                                        </span>
-                                                                                    {% elif order.status == '2' %}
-                                                                                        <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
-                                                                                        </span>
-                                                                                    {% elif order.status == '3' %}
-                                                                                        <span class="badge bg-danger text-danger-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-danger fs-9px fa-fw me-5px"></i> Bekor qilindi
-                                                                                        </span>
-                                                                                    {% endif %}
-                                                                                </td>
-
-                                                                             </tr>
-                                                                        {% endfor %}
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
                                                         </div>
 
-                                                        <div class="tab-pane fade" id="yetqazibBerilgan"
-                                                             role="tabpanel">
-
-                                                            <div class="input-group mb-4">
-                                                                <div class="flex-fill position-relative">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control ps-35px"
-                                                                               placeholder="Buyurtmalarni saralash">
-                                                                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-                                                                             style="z-index: 1020;">
-                                                                            <i class="fa fa-search opacity-5"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                        <!-- Pagination -->
+                                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                                            <div class="text-muted">
+                                                                Buyurtmalarni {{ user_orders.start_index }}
+                                                                dan {{ user_orders.end_index }} gacha,
+                                                                jami {{ user_orders.paginator.count }} ta buyurtma
                                                             </div>
+                                                            <nav aria-label="Page navigation">
+                                                                <ul class="pagination">
+                                                                    {% if user_orders.has_previous %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="?page=1"
+                                                                               aria-label="First">
+                                                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page={{ user_orders.previous_page_number }}"
+                                                                               aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
 
+                                                                    {% for num in user_orders.paginator.page_range %}
+                                                                        {% if user_orders.number == num %}
+                                                                            <li class="page-item active"><span
+                                                                                    class="page-link">{{ num }}</span>
+                                                                            </li>
+                                                                        {% elif num > user_orders.number|add:'-2' and num < user_orders.number|add:'2' %}
+                                                                            <li class="page-item"><a class="page-link"
+                                                                                                     href="?page={{ num }}">{{ num }}</a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
 
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover text-nowrap">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Jami soni</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Xolati</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {% for order in user_orders_2 %}
-                                                                            <tr>
-                                                                                <td class="align-middle">
-                                                                                    <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
-                                                                                </td>
-                                                                                <td class="align-middle">
-                                                                                    {% for i in order.maxsulotlar.all %}
-                                                                                        {{ i }},<br>
-                                                                                    {% endfor %}
-                                                                                </td>
-                                                                                <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
-                                                                                <td class="py-1 align-middle">
-                                                                                    {% if order.status == '1' %}
-                                                                                        <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
-                                                                                        </span>
-                                                                                    {% elif order.status == '2' %}
-                                                                                        <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
-                                                                                        </span>
-                                                                                    {% elif order.status == '3' %}
-                                                                                        <span class="badge bg-danger text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Bekor qilindi
-                                                                                        </span>
-                                                                                    {% endif %}
-                                                                                </td>
-
-                                                                             </tr>
-                                                                        {% endfor %}
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="tab-pane fade" id="bekorQilingan"
-                                                             role="tabpanel">
-
-                                                            <div class="input-group mb-4">
-                                                                <div class="flex-fill position-relative">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control ps-35px"
-                                                                               placeholder="Buyurtmalarni saralash">
-                                                                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-                                                                             style="z-index: 1020;">
-                                                                            <i class="fa fa-search opacity-5"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover text-nowrap">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Jami soni</th>
-                                                                        <th class="border-top-0 pt-0 pb-2">Xolati</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {% for order in user_orders_3 %}
-                                                                            <tr>
-                                                                                <td class="align-middle">
-                                                                                    <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
-                                                                                </td>
-                                                                                <td class="align-middle">
-                                                                                    {% for i in order.maxsulotlar.all %}
-                                                                                        {{ i }},<br>
-                                                                                    {% endfor %}
-                                                                                </td>
-                                                                                <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
-                                                                                <td class="py-1 align-middle">
-                                                                                    {% if order.status == '1' %}
-                                                                                        <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
-                                                                                        </span>
-                                                                                    {% elif order.status == '2' %}
-                                                                                        <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
-                                                                                        </span>
-                                                                                    {% elif order.status == '3' %}
-                                                                                        <span class="badge bg-danger text-danger-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px
-                                                                                        d-inline-flex align-items-center">
-                                                                                            <i class="fa fa-circle text-danger fs-9px fa-fw me-5px"></i> Bekor qilindi
-                                                                                        </span>
-                                                                                    {% endif %}
-                                                                                </td>
-
-                                                                             </tr>
-                                                                        {% endfor %}
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                    {% if user_orders.has_next %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page={{ user_orders.next_page_number }}"
+                                                                               aria-label="Next">
+                                                                                <span aria-hidden="true">&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page={{ user_orders.paginator.num_pages }}"
+                                                                               aria-label="Last">
+                                                                                <span aria-hidden="true">&raquo;&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                            </nav>
                                                         </div>
                                                     </div>
+
+                                                    <!-- Buyurtma berilgan tab -->
+                                                    <div class="tab-pane fade" id="buyurtmaBerilgan" role="tabpanel">
+
+                                                        <div class="input-group mb-4">
+                                                            <div class="flex-fill position-relative">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control ps-35px"
+                                                                           placeholder="Buyurtmalarni saralash">
+                                                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                                                         style="z-index: 1020;">
+                                                                        <i class="fa fa-search opacity-5"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover text-nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Jami soni</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Xolati</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for order in user_orders_1 %}
+                                                                    <tr>
+                                                                        <td class="align-middle">
+                                                                            <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
+                                                                        </td>
+                                                                        <td class="align-middle">
+                                                                            {% for i in order.maxsulotlar.all %}
+                                                                                {{ i }},<br>
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                        <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
+                                                                        <td class="py-1 align-middle">
+                                                                                <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                                                                    <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
+                                                                                </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <!-- Pagination -->
+                                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                                            <div class="text-muted">
+                                                                Buyurtmalarni {{ user_orders_1.start_index }}
+                                                                dan {{ user_orders_1.end_index }} gacha,
+                                                                jami {{ user_orders_1.paginator.count }} ta buyurtma
+                                                            </div>
+                                                            <nav aria-label="Page navigation">
+                                                                <ul class="pagination">
+                                                                    {% if user_orders_1.has_previous %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="?page_1=1"
+                                                                               aria-label="First">
+                                                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_1={{ user_orders_1.previous_page_number }}"
+                                                                               aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+
+                                                                    {% for num in user_orders_1.paginator.page_range %}
+                                                                        {% if user_orders_1.number == num %}
+                                                                            <li class="page-item active"><span
+                                                                                    class="page-link">{{ num }}</span>
+                                                                            </li>
+                                                                        {% elif num > user_orders_1.number|add:'-2' and num < user_orders_1.number|add:'2' %}
+                                                                            <li class="page-item"><a class="page-link"
+                                                                                                     href="?page_1={{ num }}">{{ num }}</a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+
+                                                                    {% if user_orders_1.has_next %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_1={{ user_orders_1.next_page_number }}"
+                                                                               aria-label="Next">
+                                                                                <span aria-hidden="true">&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_1={{ user_orders_1.paginator.num_pages }}"
+                                                                               aria-label="Last">
+                                                                                <span aria-hidden="true">&raquo;&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="tab-pane fade" id="yetqazibBerilgan" role="tabpanel">
+
+                                                        <div class="input-group mb-4">
+                                                            <div class="flex-fill position-relative">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control ps-35px"
+                                                                           placeholder="Buyurtmalarni saralash">
+                                                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                                                         style="z-index: 1020;">
+                                                                        <i class="fa fa-search opacity-5"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover text-nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Jami soni</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Xolati</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for order in user_orders_2 %}
+                                                                    <tr>
+                                                                        <td class="align-middle">
+                                                                            <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
+                                                                        </td>
+                                                                        <td class="align-middle">
+                                                                            {% for i in order.maxsulotlar.all %}
+                                                                                {{ i }},<br>
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                        <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
+                                                                        <td class="py-1 align-middle">
+                                                                            {% if order.status == '1' %}
+                                                                                <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
+                            </span>
+                                                                            {% elif order.status == '2' %}
+                                                                                <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
+                            </span>
+                                                                            {% elif order.status == '3' %}
+                                                                                <span class="badge bg-danger text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Bekor qilindi
+                            </span>
+                                                                            {% endif %}
+                                                                        </td>
+
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <!-- Pagination -->
+                                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                                            <div class="text-muted">
+                                                                Buyurtmalarni {{ user_orders_2.start_index }}
+                                                                dan {{ user_orders_2.end_index }} gacha,
+                                                                jami {{ user_orders_2.paginator.count }} ta buyurtma
+                                                            </div>
+                                                            <nav aria-label="Page navigation">
+                                                                <ul class="pagination">
+                                                                    {% if user_orders_2.has_previous %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="?page_2=1"
+                                                                               aria-label="First">
+                                                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_2={{ user_orders_2.previous_page_number }}"
+                                                                               aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+
+                                                                    {% for num in user_orders_2.paginator.page_range %}
+                                                                        {% if user_orders_2.number == num %}
+                                                                            <li class="page-item active"><span
+                                                                                    class="page-link">{{ num }}</span>
+                                                                            </li>
+                                                                        {% elif num > user_orders_2.number|add:'-2' and num < user_orders_2.number|add:'2' %}
+                                                                            <li class="page-item"><a class="page-link"
+                                                                                                     href="?page_2={{ num }}">{{ num }}</a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+
+                                                                    {% if user_orders_2.has_next %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_2={{ user_orders_2.next_page_number }}"
+                                                                               aria-label="Next">
+                                                                                <span aria-hidden="true">&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_2={{ user_orders_2.paginator.num_pages }}"
+                                                                               aria-label="Last">
+                                                                                <span aria-hidden="true">&raquo;&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="bekorQilingan" role="tabpanel">
+
+                                                        <div class="input-group mb-4">
+                                                            <div class="flex-fill position-relative">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control ps-35px"
+                                                                           placeholder="Buyurtmalarni saralash">
+                                                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                                                         style="z-index: 1020;">
+                                                                        <i class="fa fa-search opacity-5"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover text-nowrap">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="border-top-0 pt-0 pb-2">Buyurtma ID:</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Maxsulotlar</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Jami soni</th>
+                                                                    <th class="border-top-0 pt-0 pb-2">Xolati</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for order in user_orders_3 %}
+                                                                    <tr>
+                                                                        <td class="align-middle">
+                                                                            <a href="{% url 'order_detail_page' pk=order.id %}">#00{{ order.id }}</a>
+                                                                        </td>
+                                                                        <td class="align-middle">
+                                                                            {% for i in order.maxsulotlar.all %}
+                                                                                {{ i }},<br>
+                                                                            {% endfor %}
+                                                                        </td>
+                                                                        <td class="align-middle">{{ order.jami_maxsulot }}ta</td>
+                                                                        <td class="py-1 align-middle">
+                                                                            {% if order.status == '1' %}
+                                                                                <span class="badge bg-warning text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                    <i class="fa fa-circle text-warning fs-9px fa-fw me-5px"></i> Buyurtma berilgan
+                                </span>
+                                                                            {% elif order.status == '2' %}
+                                                                                <span class="badge bg-teal text-teal-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                    <i class="fa fa-circle text-teal fs-9px fa-fw me-5px"></i> Yetkazib berildi
+                                </span>
+                                                                            {% elif order.status == '3' %}
+                                                                                <span class="badge bg-danger text-danger-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center">
+                                    <i class="fa fa-circle text-danger fs-9px fa-fw me-5px"></i> Bekor qilindi
+                                </span>
+                                                                            {% endif %}
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <!-- Pagination -->
+                                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                                            <div class="text-muted">
+                                                                Buyurtmalarni {{ user_orders_3.start_index }}
+                                                                dan {{ user_orders_3.end_index }} gacha,
+                                                                jami {{ user_orders_3.paginator.count }} ta buyurtma
+                                                            </div>
+                                                            <nav aria-label="Page navigation">
+                                                                <ul class="pagination">
+                                                                    {% if user_orders_3.has_previous %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="?page_3=1"
+                                                                               aria-label="First">
+                                                                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_3={{ user_orders_3.previous_page_number }}"
+                                                                               aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+
+                                                                    {% for num in user_orders_3.paginator.page_range %}
+                                                                        {% if user_orders_3.number == num %}
+                                                                            <li class="page-item active"><span
+                                                                                    class="page-link">{{ num }}</span>
+                                                                            </li>
+                                                                        {% elif num > user_orders_3.number|add:'-2' and num < user_orders_3.number|add:'2' %}
+                                                                            <li class="page-item"><a class="page-link"
+                                                                                                     href="?page_3={{ num }}">{{ num }}</a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+
+                                                                    {% if user_orders_3.has_next %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_3={{ user_orders_3.next_page_number }}"
+                                                                               aria-label="Next">
+                                                                                <span aria-hidden="true">&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                               href="?page_3={{ user_orders_3.paginator.num_pages }}"
+                                                                               aria-label="Last">
+                                                                                <span aria-hidden="true">&raquo;&raquo;</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
                             </div>
                         </div>
@@ -408,34 +625,45 @@
 
                             <div class="tab-pane fade h-100 show active" id="newOrderTab">
                                 {% for item in cart_items %}
-                                <div class="pos-order">
-                                    <div class="pos-order-product">
-                                        <div class="img"
-                                             style="background-image: url('{{ item.maxsulot.rasm.url }}')"></div>
-                                        <div class="flex-1">
-                                            <div class="h6 mb-1">{{ item.maxsulot.nomi }}</div>
-                                            <div class="small mb-2">{{ item.maxsulot.qoshimcha }}</div>
-                                            <div class="d-flex">
-                                                <a href="#" class="btn btn-secondary btn-sm"><i class="fa fa-minus"></i></a>
+                                    <div class="pos-order">
+                                        <div class="pos-order-product">
+                                            <div class="img"
+                                                 style="background-image: url('{{ item.maxsulot.rasm.url }}')"></div>
+                                            <div class="flex-1">
+                                                <div class="h6 mb-1">{{ item.maxsulot.nomi }}</div>
+                                                <div class="small mb-2">{{ item.maxsulot.qoshimcha }}</div>
+{#                                                <div class="d-flex">#}
+{#                                                    <a href="#" class="btn btn-secondary btn-sm"><i#}
+{#                                                            class="fa fa-minus"></i></a>#}
+{#                                                    <input disabled type="text"#}
+{#                                                           class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"#}
+{#                                                           value="{{ item.soni }}" id="quantity_{{ item.id }}">#}
+{#                                                    <a href="#" class="btn btn-secondary btn-sm ml-1"><i#}
+{#                                                            class="fa fa-plus"></i></a>#}
+{#                                                    <!--                                                    <a href="#" class="btn btn-theme btn-sm"><i class="fa-solid fa-rotate"></i></a>-->#}
+{#                                                </div>#}
+
+                                                 <div class="d-flex">
+                                                <a href="#" class="btn btn-secondary btn-sm" onclick="decreaseQuantity('{{ item.id }}')"><i class="fa fa-minus"></i></a>
                                                 <input disabled type="text"
-                                                       class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
+                                                       class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 text-center"
                                                        value="{{ item.soni }}" id="quantity_{{ item.id }}">
-                                                <a href="#" class="btn btn-secondary btn-sm ml-1"><i
-                                                        class="fa fa-plus"></i></a>
-                                                <!--                                                    <a href="#" class="btn btn-theme btn-sm"><i class="fa-solid fa-rotate"></i></a>-->
+                                                <a href="#" class="btn btn-secondary btn-sm ml-1" onclick="increaseQuantity('{{ item.id }}')"><i class="fa fa-plus"></i></a>
+                                            </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="pos-order-price d-flex flex-column">
+                                            <div class="flex-1">{{ item.maxsulot.razmer }}</div>
+                                            <div class="text-end">
+                                                <a href="#" class="btn btn-default btn-sm"
+                                                   onclick="removeFromCart('{{ item.id }}')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pos-order-price d-flex flex-column">
-                                        <div class="flex-1">{{ item.maxsulot.razmer }}</div>
-                                        <div class="text-end">
-                                            <a href="#" class="btn btn-default btn-sm"
-                                               onclick="removeFromCart('{{ item.id }}')"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
                                 {% empty %}
-                                    <div class="alert alert-warning rounded-0 text-center"><h4><i class="fa-solid fa-trash text-warning"></i> Savatcha bo'sh!</h4></div>
+                                    <div class="alert alert-warning rounded-0 text-center"><h4><i
+                                            class="fa-solid fa-trash text-warning"></i> Savatcha bo'sh!</h4></div>
                                 {% endfor %}
 
                             </div>
@@ -452,7 +680,8 @@
                                            id="rasmUchun">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="form-label fw-bold text-primary" for="textUchun">Qo'shimcha matn(Ixtiyoriy)</label>
+                                    <label class="form-label fw-bold text-primary" for="textUchun">Qo'shimcha
+                                        matn(Ixtiyoriy)</label>
                                     <textarea name="qoshimchaMatn" class="form-control" id="textUchun"
                                               rows="3"></textarea>
                                 </div>
@@ -466,35 +695,35 @@
                                 <div class="d-flex">
 
                                     {% if cart_item_count == 0 %}
-                                    <div onclick="alert('Savatcha bo\'sh!')"
-                                         class="btn btn-danger me-10px d-flex align-items-center justify-content-center">
+                                        <div onclick="alert('Savatcha bo\'sh!')"
+                                             class="btn btn-danger me-10px d-flex align-items-center justify-content-center">
                                             <span>
                                                 <i class="fa-solid fa-trash fa-lg my-10px d-block"></i>
                                                 <span class="fw-bold">Tozalash</span>
                                             </span>
-                                    </div>
-                                    <div onclick="alert('Savatcha bo\'sh!')"
-                                         class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
+                                        </div>
+                                        <div onclick="alert('Savatcha bo\'sh!')"
+                                             class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
                                             <span>
                                                 <i class="fa fa-cash-register fa-lg my-10px d-block"></i>
                                                 <span class="fw-bold">Buyurtma berish</span>
                                             </span>
-                                    </div>
+                                        </div>
                                     {% else %}
-                                    <div onclick="removeAllCart()"
-                                         class="btn btn-danger me-10px d-flex align-items-center justify-content-center">
+                                        <div onclick="removeAllCart()"
+                                             class="btn btn-danger me-10px d-flex align-items-center justify-content-center">
                                             <span>
                                                 <i class="fa-solid fa-trash fa-lg my-10px d-block"></i>
                                                 <span class="fw-bold">Tozalash</span>
                                             </span>
-                                    </div>
-                                    <button onclick="orderConfirm()"
-                                            class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
+                                        </div>
+                                        <button onclick="orderConfirm()"
+                                                class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
                                             <span>
                                                 <i class="fa fa-cash-register fa-lg my-10px d-block"></i>
                                                 <span class="fw-bold">Buyurtma berish</span>
                                             </span>
-                                    </button>
+                                        </button>
                                     {% endif %}
                                 </div>
                             </div>
@@ -716,25 +945,65 @@
 </script>
 
 <script>
-    function decreaseQuantity(itemId) {
-        var quantityInput = document.getElementById('quantity_' + itemId);
-        if (quantityInput) {
-            var currentQuantity = parseInt(quantityInput.value);
-            if (currentQuantity > 1) {
-                quantityInput.value = currentQuantity - 1;
+
+
+function updateCartQuantity(cartItemId, newQuantity) {
+    fetch('/update-cart-quantity/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken() // CSRF token for security
+        },
+        body: JSON.stringify({
+            cart_item_id: cartItemId,
+            new_quantity: newQuantity
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Cart updated successfully!');
+            } else {
+                console.error('Error updating cart:', data.message);
             }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function decreaseQuantity(cartItemId) {
+    var quantityInput = document.getElementById('quantity_' + cartItemId);
+    console.log("Ishladi");
+    if (quantityInput) {
+        var currentQuantity = parseInt(quantityInput.value) || 1;
+        if (currentQuantity > 1) {
+            var newQuantity = currentQuantity - 1;
+            quantityInput.value = newQuantity;
+
+            // Update the database
+            updateCartQuantity(cartItemId, newQuantity);
         }
     }
+}
 
-    function increaseQuantity(itemId) {
-        var quantityInput = document.getElementById('quantity_' + itemId);
-        if (quantityInput) {
-            quantityInput.value = parseInt(quantityInput.value) + 1;
+function increaseQuantity(cartItemId) {
+    var quantityInput = document.getElementById('quantity_' + cartItemId);
+    if (quantityInput) {
+        var newQuantity = parseInt(quantityInput.value) + 1;
+        quantityInput.value = newQuantity;
 
-        }
-        console.log('+++')
-        console.log(quantityInput)
+        // Update the database
+        updateCartQuantity(cartItemId, newQuantity);
     }
+}
+
+// Helper function to get CSRF token from cookies
+function getCsrfToken() {
+    const csrfCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='));
+    return csrfCookie ? csrfCookie.split('=')[1] : '';
+}
+
 
     function removeFromCart(itemId) {
 
@@ -761,9 +1030,13 @@
     }
 </script>
 
-<script>
 
-</script>
+
+
+
+
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
