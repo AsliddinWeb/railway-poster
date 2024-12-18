@@ -76,13 +76,13 @@ class OrderResource(resources.ModelResource):
             # Format the Status field using choices
             ws[f"E{row_num}"] = dict(obj._meta.get_field('status').choices).get(obj.status, obj.status)
 
-            # ws[f"F{row_num}"] = obj.qoshimcha_matn2  # Additional Text
+            ws[f"F{row_num}"] = obj.qoshimcha_matn2  # Additional Text
 
             # Format the To field using choices
-            ws[f"F{row_num}"] = dict(obj._meta.get_field('kimga').choices).get(obj.kimga, obj.kimga)
+            ws[f"G{row_num}"] = dict(obj._meta.get_field('kimga').choices).get(obj.kimga, obj.kimga)
 
             # Format the Time field
-            ws[f"G{row_num}"] = obj.created_at.strftime("%Y-%m-%d %H:%M:%S") if obj.created_at else ""
+            ws[f"H{row_num}"] = obj.created_at.strftime("%Y-%m-%d %H:%M:%S") if obj.created_at else ""
 
             # Adjust row height to fit product details
             row_height = max(len(product_details.split("\n")) * 15, 15)  # 15 points per line as a base
